@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>Paracetomol Pathway</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src=" https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src=" https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-sliderAccess.js"></script>
+<script type="text/javascript" src="Scripts/AP.js"></script>
+
+<link  type="text/css" rel="stylesheet" href="css/AP.css">
+<link  type="text/css" rel="stylesheet" href=" https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.css">
+<link  type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/pepper-grinder/jquery-ui.css">
+
+</head>
+
+<body>
+
+<div id="content">
+<div id="title">
+<H2>Paracetomol Pathway (Prototype - not for use)</H2>
+</div>
+<div id="demographics" class="blocks">
+<div class="numberblocks">
+<span>-</span>
+</div>
+<h4>SU Details</h4><br>
+<label for="datepicker">Date:</label><input type="text" id="datepicker">
+<label for="name">SU Name:</label><input type="text"  id="name">
+<label for="datepicker1">DOB:</label><input type="text" id="datepicker1">
+<label for="nhsno">NHS No:</label><input type="text"  id="nhsno">
+</div> <!--close demographics-->
+
+<div id="Timeline" class="blocks">
+<div class="numberblocks">
+<span>1</span>
+</div>
+<h4>Timeline</h4><br>
+<label for="datepicker5">Date and time of paracetamol ingestion:</label><input type="text" id="datepicker5" ><br>
+Time elapsed since ingestion:<span id="clock"></span>
+<table id="timelinetable">
+<tr><th colspan="5"><div id="timemarker"></div></th></tr>
+<tr>
+<td id="spacer"></td>
+<td id="firsthour">Activated Charcoal</td>
+<td id="hoursonetofour">Monitor</td>
+<td id="hoursfourtoeight">Plasma level Assess for Acetycysteine</td>
+<td id="eighthoursplus">Commence Acetylcysteine then Plasma level</td>
+</tr>
+</table>
+</div> <!--close timeline-->
+<div id="firstbloodtests" class="blocks">
+<div class="numberblocks">
+<span>2</span>
+</div> <!--close numberblock-->
+<h4>Initial Blood Tests</h4>
+<table class="bloodtests">
+<tr>
+<td>Paracetomol Concentration</td>
+<td id="plasma"></td>
+<td rowspan="4"> <img src="Images/ParacetomolLevelContainer.jpg" class="PLIMG" alt="Yellow Bottle" style="width:400px;height:80px;"> </td>
+</tr>
+<tr>
+<td> Urea and Electrolytes (U and E) </td>
+<td></td>
+</tr>
+<tr>
+<td>Liver Function Test (LFT)</td>
+<td></td>
+</tr>
+<tr>
+<td>Creatine</td>
+<td></td>
+</tr>
+</table>
+<table class=bloodtests>
+<tr>
+<td>International Normalised Ratio (INR) or Prothrombin Time (PT)</td>
+<td></td>
+<td> <img src="Images/INRContainer.jpg" class="InrImg" alt="Blue Bottle" style="width:410px;height:70px;"></td>
+</tr>
+</table>
+</div> <!--close first blood tests-->
+
+<div id="plasmalevel" class="blocks">
+<div class="numberblocks">
+<span>3</span>
+</div> <!--close numberblock--> 
+<h4>Treatment Line</h4><br>
+Time between paracetomol dose and blood sample taken:
+<input type="text" readonly id="time">: <input type="text" readonly id="timemins"><br>
+<div id="plasmaslider" class="sliderdiv"></div>
+<label for="plasma_concentration" > Blood Result - Plasma-Paracetomol Concentration mg/litre: </label> 
+<input type="text" readonly id="plasma_concentration">
+
+
+
+<div style="margin: 5px">
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+<div id="container" style="width: 70%; height: 40%; margin: 0 auto"></div>
+<script type="text/javascript" src="http://code.highcharts.com/themes/grid.js"></script>
+</div> 
+<div id="box2"></div>
+</div> <!--close plasma level-->
+
+<div id="dosage" class="blocks">
+<div class="numberblocks">
+<span>4</span>
+</div> <!--close numberblock-->
+<h4>Dosage Calcultion</h4>
+<div id="weightslider" class="sliderdiv"></div>
+SU Weight (Kg): <input type="text" readonly id="w1">
+<div id="firstbox" class="box">
+<Table class='OutputTables'>
+<tr><th colspan='3'>First Infusion</th></tr>
+<tr>
+<td id='fbt1' class='outputbox' style='width:32%'></td>
+<td id='fbt2' class='outputbox' style='width:32%'></td>
+<td id='fbt3' class='outputbox' style='width:32%'></td>
+</tr>
+<tr>
+<td id='fbt1img' style='width:32%'><img src='Images/Ampule.jpg' class='AmpImg' alt='Ampule' style='width:80px; height:160px; margin-left:25%'></td>
+<td id='fbt2img' style='width:32%'><img id="firstbag" src='Images/salinebag.jpg' class='AmpImg' alt='Drip Bag' style='width:90%;height:160px;margin-left:5%'></td>
+<td id='fbt3img' style='width:32%'><img src='Images/dripfeed.jpg' class='AmpImg' alt='Drip Rate' style='width:79px;height:160px;margin-left:25%'></td>
+</tr>
+<tr>
+<td id='fbt1comp' style='width:32%; border:none '> Complete <input type='radio' class='compboxes' name='compbox1' id='comp1'> Discontinued <input type='radio' class='discontboxes' name='compbox1' id='incomp1'> </td>
+<td id='fbt2comp' style='width:32%; border:none '>  </td>
+<td id='fbt3comp' style='width:32%; border:none '> </td>
+</tr>
+</table>
+</div>
+<div id="secondbox" class="box">
+<Table class='OutputTables'>
+<tr><th colspan='3'>Second Infusion</th></tr>
+<tr>
+<td id='sbt1' class='outputbox' style='width:32%'></td>
+<td id='sbt2' class='outputbox' style='width:32%'></td>
+<td id='sbt3' class='outputbox' style='width:32%'></td>
+</tr>
+<tr>
+<td id='sbt1img' style='width:32%'><img src='Images/Ampule.jpg' class='AmpImg' alt='Ampule' style='width:80px; height:160px; margin-left:25%'></td>
+<td id='sbt2img' style='width:32%'><img src='Images/salinebag.jpg' id="secondbag" class='AmpImg' alt='Drip Bag' style='width:90%;height:160px;margin-left:5%'></td>
+<td id='sbt3img' style='width:32%'><img src='Images/dripfeed.jpg' class='AmpImg' alt='Drip Rate' style='width:79px;height:160px;margin-left:25%'></td>
+</tr>
+<tr>
+<td id='sbt1comp' style='width:32%; border:none '> Complete <input type='radio' class='compboxes' name='compbox2' id='comp2'> Discontinued <input type='radio' class='discontboxes' name='compbox2' id='incomp2'> </td>
+<td id='sbt2comp' style='width:32%; border:none '></td>
+<td id='sbt3comp' style='width:32%; border:none'> </td>
+</tr>
+</table>
+</div>
+<div id="thirdbox" class="box">
+<Table class='OutputTables'>
+<tr><th colspan='3'>Third Infusion</th></tr>
+<tr>
+<td id='tbt1' class='outputbox' style='width:32%'></td>
+<td id='tbt2' class='outputbox' style='width:32%'></td>
+<td id='tbt3' class='outputbox' style='width:32%'></td>
+</tr>
+<tr>
+<td id='tbt1img' style='width:32%'><img src='Images/Ampule.jpg' class='AmpImg' alt='Ampule' style='width:80px; height:160px; margin-left:25%'></td>
+<td id='tbt2img' style='width:32%'><img src='Images/salinebag.jpg' id="thirdbag" class='AmpImg' alt='Drip Bag' style='width:90%;height:160px;margin-left:5%'></td>
+<td id='tbt3img' style='width:32%'><img src='Images/dripfeed.jpg' class='AmpImg' alt='Drip Rate' style='width:79px;height:160px;margin-left:25%'></td>
+</tr>
+<tr>
+<td id='tbt1comp' style='width:32%; border:none '> Complete <input type='radio' class='compboxes' name='compbox3' id='comp3'> Discontinued <input type='radio' class='discontboxes' name='compbox3' id='incomp3'> </td>
+<td id='tbt2comp' style='width:32%; border:none '> </td>
+<td id='tbt3comp' style='width:32%; border:none '></td>
+</tr>
+</table>
+</div>
+</div> <!--close dosage-->
+<div id="bloodtests" class="blocks">
+<div class="numberblocks">
+<span>5</span>
+</div> <!--close numberblock-->
+<h4>Final Blood Tests</h4>
+<table class="bloodtests">
+<tr>
+<td>Urea and Electrolytes (U and E)</td>
+<td></td>
+<td rowspan="3"> <img src="Images/ParacetomolLevelContainer.jpg" class="PLIMG" alt="Yellow Bottle" style="width:400px;height:80px;"></td>
+</tr>
+<tr>
+<td>Liver Function Test (LFT)</td>
+<td></td>
+</tr>
+<tr>
+<td>Creatine</td>
+<td></td>
+</tr>
+</table>
+<table class=bloodtests>
+<tr>
+<td>International Normalised Ratio (INR) or Prothrombin Time (PT)</td>
+<td></td>
+<td> <img src="Images/INRContainer.jpg" class="InrImg" alt="Blue Bottle" style="width:410px;height:70px;"></td>
+</tr>
+</table>
+</div> <!--close blood tests-->
+
+
+<div id="referalson" class="blocks">
+<div class="numberblocks">
+<span>6</span>
+</div>
+<h4>Referrals On</h4><br>
+<label for="intentionalod" >Suspected or Confirmed Intentional Overdose</label><input type="radio" name="odtype" class="referalradio" id="intentionalod"><br>
+<label for="liasonpsych" class="reflabel">Referal made to Liaison Psychiatry</label><input type="text" id="liasonpsych" class="datepicker6"><br>
+
+<label for="accidentalod" >Accidental Overdose</label><input type="radio" name="odtype" class="referalradio" id="accidentalod"><br>
+<label for="pharmacy" class="reflabel">Referal made for Pharmacist input</label><input type="text" id="pharmacy" class="datepicker6"><br>
+<label for="painmanage" class="reflabel">Referal made for Pain management</label><input type="text" id="painmanage" class="datepicker6"><br>
+<label for="medadvice" class="reflabel">Medication advice given</label><input type="text" id="medadvice" class="datepicker6"><br>
+
+
+
+</div> <!--close referrals on-->
+
+
+<div id="sign">
+Code4Health
+</div> <!--close sign-->
+</div> <!--close contents-->
+
+
+<!--add form for discontinued-->
+<div id="discontinuedbox">
+<h3>Discontinued</h3>
+<select id="discontreason">
+<option>Please Select</option>
+<option>Discontinued by service user</option>
+<option>Adverse Reaction</option>
+</select>
+<label for="datepicker2">Date:</label><input type="text" id="datepicker2" >
+<button type="button" id="discontok">OK</button>
+<button type="button" id="discontclose">Close</button>
+</div> <!--close discontinued-->
+<!--add form for complete dose-->
+<div id="completebox">
+<h3>Completed</h3>
+<label for="datepicker3">Date:</label><input type="text" id="datepicker3" >
+<button type="button" id="completeok">OK</button>
+<button type="button" id="completeclose">Close</button>
+</div> <!--close complete-->
+<!--add form for complete dose-->
+<div id="completebloodtestbox">
+<h3>Completed</h3>
+<label for="datepicker4">Date:</label><input type="text" id="datepicker4" >
+<button type="button" id="completebloodtestok">OK</button>
+<button type="button" id="completebloodtestclose">Close</button>
+</div> <!--close bloodtestcomplete-->
+
+</body>
+
+</html>
